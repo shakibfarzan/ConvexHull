@@ -5,17 +5,16 @@ import java.awt.*;
 import java.util.LinkedList;
 
 public class MainFrame extends JFrame {
-    private JCheckBox xAndYCheckBox;
-    private JRadioButton grahamScanButton;
-    private JRadioButton quickHallButton;
-    private JRadioButton connectAll;
-    private LinkedList<Point> points = new LinkedList<>();
-    private JPanel contentPane = new JPanel();
-    private JPanel pointsPane = new JPanel();
-    private JButton clearAllButton;
-    private JButton clearLinesButton;
-    private JRadioButton blindSearchButton;
-    private Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+    private final JCheckBox xAndYCheckBox;
+    private final JRadioButton grahamScanButton;
+    private final JRadioButton quickHallButton;
+    private final JRadioButton connectAll;
+    private final LinkedList<Point> points;
+    private final JPanel pointsPane;
+    private final JButton clearAllButton;
+    private final JButton clearLinesButton;
+    private final JRadioButton blindSearchButton;
+    private static final Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
     public static final int FRAME_WIDTH = 800;
     public static final int FRAME_HEIGHT = 600;
 
@@ -23,6 +22,9 @@ public class MainFrame extends JFrame {
         setTitle("Convex Hull");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(dim.width / 2 - FRAME_WIDTH / 2, dim.height / 2 - FRAME_HEIGHT / 2, FRAME_WIDTH, FRAME_HEIGHT);
+        points = new LinkedList<>();
+        JPanel contentPane = new JPanel();
+        pointsPane = new JPanel();
         contentPane.setBackground(Color.WHITE);
         contentPane.setLayout(null);
         setContentPane(contentPane);
