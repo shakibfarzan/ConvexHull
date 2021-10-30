@@ -26,8 +26,9 @@ public class MainControl {
             }
         });
         frame.getxAndYCheckBox().addActionListener(this::xAndYCheckBoxListener);
-        frame.getClearButton().addActionListener(this::clear);
+        frame.getClearAllButton().addActionListener(this::clear);
         frame.getConnectAll().addActionListener(this::connectAllPoints);
+        frame.getClearLinesButton().addActionListener(this::clearLines);
     }
 
     private void setPoint(MouseEvent e){
@@ -61,6 +62,26 @@ public class MainControl {
         frame.getPoints().clear();
     }
 
+    private void clearLines(ActionEvent e){
+        if(frame.getPoints().isEmpty()) return;
+        Graphics g = frame.getGraphics();
+        Iterator<Point> itr = frame.getPoints().iterator();
+        Point prev = itr.next();
+        Point first = prev;
+        Point current;
+        while (itr.hasNext()){
+            current = itr.next();
+            g.setColor(Color.RED);
+            g.fillOval(prev.x, prev.y, ROUND,ROUND);
+            g.setColor(Color.BLACK);
+            g.drawLine(prev.x, prev.y, current.x, current.y);
+            prev = current;
+        }
+        g.setColor(Color.RED);
+        g.fillOval(prev.x, prev.y, ROUND,ROUND);
+        g.setColor(Color.BLACK);
+        g.drawLine(prev.x, prev.y, first.x, first.y);
+    }
 
     private static double reverseSlope(Point a, Point b){
         return ((b.getX() - a.getX()))/(b.getY() - a.getY());

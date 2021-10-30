@@ -2,11 +2,6 @@ package org.bihe.gui;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class MainFrame extends JFrame {
@@ -17,7 +12,8 @@ public class MainFrame extends JFrame {
     private LinkedList<Point> points = new LinkedList<>();
     private JPanel contentPane = new JPanel();
     private JPanel pointsPane = new JPanel();
-    private JButton clearButton;
+    private JButton clearAllButton;
+    private JButton clearLinesButton;
     private JRadioButton blindSearchButton;
     private Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
     public static final int FRAME_WIDTH = 800;
@@ -35,11 +31,17 @@ public class MainFrame extends JFrame {
         pointsPane.setBackground(Color.BLACK);
         getContentPane().add(pointsPane);
 
-        clearButton = new JButton("Clear");
-        clearButton.setBackground(Color.GRAY);
-        clearButton.setForeground(Color.WHITE);
-        clearButton.setBounds(43, 201, 89, 23);
-        contentPane.add(clearButton);
+        clearAllButton = new JButton("Clear All");
+        clearAllButton.setBackground(Color.GRAY);
+        clearAllButton.setForeground(Color.WHITE);
+        clearAllButton.setBounds(43, 236, 100, 23);
+        contentPane.add(clearAllButton);
+
+        clearLinesButton = new JButton("Clear Lines");
+        clearLinesButton.setBackground(Color.GRAY);
+        clearLinesButton.setForeground(Color.WHITE);
+        clearLinesButton.setBounds(43, 201, 100, 23);
+        contentPane.add(clearLinesButton);
 
         ButtonGroup bg = new ButtonGroup();
 
@@ -90,8 +92,12 @@ public class MainFrame extends JFrame {
         return points;
     }
 
-    public JButton getClearButton() {
-        return clearButton;
+    public JButton getClearAllButton() {
+        return clearAllButton;
+    }
+
+    public JButton getClearLinesButton() {
+        return clearLinesButton;
     }
 
     public JRadioButton getBlindSearchButton() {
