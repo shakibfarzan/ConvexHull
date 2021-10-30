@@ -8,12 +8,12 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.*;
 
-public class MainControl {
+public class MainController {
     private MainFrame frame;
     private static int ADDX = 190;
     private static int ADDY = 22;
     private static int ROUND = 6;
-    public MainControl(MainFrame frame){
+    public MainController(MainFrame frame){
         this.frame = frame;
         init();
     }
