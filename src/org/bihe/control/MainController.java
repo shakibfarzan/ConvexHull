@@ -10,11 +10,13 @@ import java.util.*;
 
 public class MainController {
     private MainFrame frame;
+    private LinkedList<Point> connectedPoints;
     private static int ADDX = 190;
     private static int ADDY = 22;
     private static int ROUND = 6;
     public MainController(MainFrame frame){
         this.frame = frame;
+        this.connectedPoints = new LinkedList<>();
         init();
     }
 
@@ -63,9 +65,9 @@ public class MainController {
     }
 
     private void clearLines(ActionEvent e){
-        if(frame.getPoints().isEmpty()) return;
+        if(connectedPoints.isEmpty()) return;
         Graphics g = frame.getGraphics();
-        Iterator<Point> itr = frame.getPoints().iterator();
+        Iterator<Point> itr = connectedPoints.iterator();
         Point prev = itr.next();
         Point first = prev;
         Point current;
@@ -81,6 +83,7 @@ public class MainController {
         g.fillOval(prev.x, prev.y, ROUND,ROUND);
         g.setColor(Color.BLACK);
         g.drawLine(prev.x, prev.y, first.x, first.y);
+        connectedPoints.clear();
     }
 
     private static double reverseSlope(Point a, Point b){
@@ -92,10 +95,11 @@ public class MainController {
         if (points.isEmpty()){
             return;
         }
-        connectPoints(points);
+        connectPoints(points, e);
     }
 
-    private void connectPoints(LinkedList<Point> points){
+    private void connectPoints(LinkedList<Point> points, ActionEvent event){
+        clearLines(event);
         Point minY = minY(points);
         points.sort(Comparator.comparingDouble(p -> reverseSlope(minY, p)));
         points.remove(minY);
@@ -106,17 +110,14 @@ public class MainController {
         Point first = prev;
         Point current;
         while (itr.hasNext()){
+            connectedPoints.add(prev);
             current = itr.next();
             g.setColor(Color.GREEN);
             g.fillOval(prev.x, prev.y, ROUND,ROUND);
             g.drawLine(prev.x, prev.y, current.x, current.y);
-            try {
-                Thread.sleep(500);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
             prev = current;
         }
+        connectedPoints.add(prev);
         g.setColor(Color.GREEN);
         g.fillOval(prev.x, prev.y, ROUND,ROUND);
         g.drawLine(prev.x, prev.y, first.x, first.y);

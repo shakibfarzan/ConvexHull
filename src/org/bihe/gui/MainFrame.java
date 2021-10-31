@@ -72,7 +72,7 @@ public class MainFrame extends JFrame {
         bg.add(grahamScanButton);
         bg.add(connectAll);
 
-        xAndYCheckBox = new JCheckBox("Show( x & y)");
+        xAndYCheckBox = new JCheckBox("Show(x & y)");
         xAndYCheckBox.setBackground(Color.WHITE);
         xAndYCheckBox.setBounds(6, 166, 97, 23);
         contentPane.add(xAndYCheckBox);
