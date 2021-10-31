@@ -115,6 +115,11 @@ public class MainController {
             g.setColor(Color.GREEN);
             g.fillOval(prev.x, prev.y, ROUND,ROUND);
             g.drawLine(prev.x, prev.y, current.x, current.y);
+            try {
+                Thread.sleep(200);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             prev = current;
         }
         connectedPoints.add(prev);
