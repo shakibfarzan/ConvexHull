@@ -20,7 +20,7 @@ public class BlindSearch {
         double det2 = determinant(p, v2, v3);
         double det3 = determinant(p, v3, v1);
 
-        return !((det1 > 0 || det2 > 0 || det3 > 0) && (det1 < 0 || det2 < 0 || det3 < 0));
+        return !((det1 >= 0 || det2 >= 0 || det3 >= 0) && (det1 < 0 || det2 < 0 || det3 < 0));
     }
 
     public LinkedList<Point> blindSearch() {
