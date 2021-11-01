@@ -31,6 +31,7 @@ public class MainController {
         frame.getClearAllButton().addActionListener(this::clear);
         frame.getConnectAll().addActionListener(this::connectAllPoints);
         frame.getClearLinesButton().addActionListener(this::clearLines);
+        frame.getBlindSearchButton().addActionListener(this::blindSearchAction);
     }
 
     private void setPoint(MouseEvent e){
@@ -115,11 +116,6 @@ public class MainController {
             g.setColor(Color.GREEN);
             g.fillOval(prev.x, prev.y, ROUND,ROUND);
             g.drawLine(prev.x, prev.y, current.x, current.y);
-            try {
-                Thread.sleep(200);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
             prev = current;
         }
         connectedPoints.add(prev);
@@ -136,5 +132,13 @@ public class MainController {
             }
         }
         return min;
+    }
+
+    private void blindSearchAction(ActionEvent event){
+        BlindSearch blindSearch = new BlindSearch(frame.getPoints());
+        LinkedList<Point> correctPoints = blindSearch.blindSearch();
+        if (correctPoints.isEmpty()) return;
+        connectPoints(correctPoints, event);
+
     }
 }
