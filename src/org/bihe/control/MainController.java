@@ -63,6 +63,7 @@ public class MainController {
         Graphics g = frame.getGraphics();
         frame.paint(g);
         frame.getPoints().clear();
+        connectedPoints.clear();
     }
 
     private void clearLines(ActionEvent e){
