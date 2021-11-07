@@ -31,6 +31,7 @@ public class MainController {
         frame.getClearAllButton().addActionListener(this::clear);
         frame.getConnectAll().addActionListener(this::connectAllPoints);
         frame.getClearLinesButton().addActionListener(this::clearLines);
+        frame.getBlindSearchButton().addActionListener(this::blindSearchAction);
     }
 
     private void setPoint(MouseEvent e){
@@ -131,5 +132,13 @@ public class MainController {
             }
         }
         return min;
+    }
+
+    private void blindSearchAction(ActionEvent event){
+        BlindSearch blindSearch = new BlindSearch(frame.getPoints());
+        LinkedList<Point> correctPoints = blindSearch.blindSearch();
+        if (correctPoints.isEmpty()) return;
+        connectPoints(correctPoints, event);
+
     }
 }
