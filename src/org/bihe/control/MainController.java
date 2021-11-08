@@ -128,7 +128,7 @@ public class MainController {
     private static Point minY(LinkedList<Point> points){
         Point min = points.getFirst();
         for (Point p: points){
-            if(p.getY() > min.getY()){
+            if(p.getY() > min.getY() || (p.getY() == min.getY() && p.getX() < min.getX())){
                 min = p;
             }
         }
