@@ -11,8 +11,8 @@ import java.util.*;
 public class MainController {
     private MainFrame frame;
     private LinkedList<Point> connectedPoints;
-    private static int ADDX = 190;
-    private static int ADDY = 10;
+    private static int ADDX = 185;
+    private static int ADDY = 25;
     private static int ROUND = 6;
     public MainController(MainFrame frame){
         this.frame = frame;

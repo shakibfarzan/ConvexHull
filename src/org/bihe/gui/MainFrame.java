@@ -21,7 +21,7 @@ public class MainFrame extends JFrame {
     public MainFrame(){
         setTitle("Convex Hull");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(dim.width / 2 - FRAME_WIDTH / 2, dim.height / 2 - FRAME_HEIGHT / 2, FRAME_WIDTH, FRAME_HEIGHT);
+        setBounds(280, 100, FRAME_WIDTH, FRAME_HEIGHT);
         points = new LinkedList<>();
         JPanel contentPane = new JPanel();
         pointsPane = new JPanel();
