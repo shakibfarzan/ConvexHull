@@ -137,7 +137,7 @@ public class MainController {
 
     private void blindSearchAction(ActionEvent event){
         BlindSearch blindSearch = new BlindSearch(frame.getPoints());
-        LinkedList<Point> correctPoints = blindSearch.blindSearch();
+        LinkedList<Point> correctPoints = blindSearch.solve();
         if (correctPoints.isEmpty()) return;
         connectPoints(correctPoints, event);
 

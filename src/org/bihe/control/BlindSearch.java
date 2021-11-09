@@ -23,7 +23,7 @@ public class BlindSearch {
         return !((det1 >= 0 || det2 >= 0 || det3 >= 0) && (det1 < 0 || det2 < 0 || det3 < 0));
     }
 
-    public LinkedList<Point> blindSearch() {
+    public LinkedList<Point> solve() {
         LinkedList<Point> correctPoints = new LinkedList<>();
         for (Point p : points) {
             boolean inTriangle = false;
