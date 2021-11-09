@@ -12,7 +12,7 @@ public class MainController {
     private MainFrame frame;
     private LinkedList<Point> connectedPoints;
     private static int ADDX = 190;
-    private static int ADDY = 22;
+    private static int ADDY = 10;
     private static int ROUND = 6;
     public MainController(MainFrame frame){
         this.frame = frame;
@@ -102,10 +102,15 @@ public class MainController {
 
     private void connectPoints(LinkedList<Point> points, ActionEvent event){
         clearLines(event);
-        Point minY = minY(points);
+        LinkedList<Point> minYs = minY(points);
+        Point minY = minYs.element();
         points.sort(Comparator.comparingDouble(p -> reverseSlope(minY, p)));
-        points.remove(minY);
-        points.addFirst(minY);
+        minYs.sort(Comparator.comparingDouble(Point::getX));
+        points.removeIf(p -> p.getY() == minY.getY());
+        while(!minYs.isEmpty()){
+            Point p = minYs.pollLast();
+            points.addFirst(p);
+        }
         Graphics g = frame.getGraphics();
         Iterator<Point> itr = points.iterator();
         Point prev = itr.next();
@@ -125,14 +130,20 @@ public class MainController {
         g.drawLine(prev.x, prev.y, first.x, first.y);
     }
 
-    private static Point minY(LinkedList<Point> points){
+    private static LinkedList<Point> minY(LinkedList<Point> points){
         Point min = points.getFirst();
         for (Point p: points){
-            if(p.getY() > min.getY() || (p.getY()==min.getY() && p.getX() > min.getX())){
+            if(p.getY() > min.getY()){
                 min = p;
             }
         }
-        return min;
+        LinkedList<Point> mins = new LinkedList<>();
+        for (Point p: points){
+            if (p.getY() == min.getY()){
+                mins.add(p);
+            }
+        }
+        return mins;
     }
 
     private void blindSearchAction(ActionEvent event){
