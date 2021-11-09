@@ -29,7 +29,7 @@ public class MainFrame extends JFrame {
         contentPane.setLayout(null);
         setContentPane(contentPane);
         setResizable(false);
-        pointsPane.setBounds(dim.width / 2 - (FRAME_WIDTH+200) / 2, dim.height / 2 - (FRAME_HEIGHT+180) / 2, FRAME_WIDTH, FRAME_HEIGHT);
+        pointsPane.setBounds(getX()-100, getY()-100, FRAME_WIDTH, FRAME_HEIGHT);
         pointsPane.setBackground(Color.BLACK);
         getContentPane().add(pointsPane);
 
