@@ -9,8 +9,8 @@ import java.awt.event.MouseEvent;
 import java.util.*;
 
 public class MainController {
-    private MainFrame frame;
-    private LinkedList<Point> connectedPoints;
+    private final MainFrame frame;
+    private final LinkedList<Point> connectedPoints;
     private static int ADDX = 185;
     private static int ADDY = 25;
     private static int ROUND = 6;
@@ -32,6 +32,7 @@ public class MainController {
         frame.getConnectAll().addActionListener(this::connectAllPoints);
         frame.getClearLinesButton().addActionListener(this::clearLines);
         frame.getBlindSearchButton().addActionListener(this::blindSearchAction);
+        frame.getQuickHallButton().addActionListener(this::quickHullAction);
     }
 
     private void setPoint(MouseEvent e){
@@ -151,6 +152,12 @@ public class MainController {
         LinkedList<Point> correctPoints = blindSearch.solve();
         if (correctPoints.isEmpty()) return;
         connectPoints(correctPoints, event);
+    }
 
+    private void quickHullAction(ActionEvent event){
+        QuickHull quickHull = new QuickHull(frame.getPoints());
+        LinkedList<Point> correctPoints = quickHull.solve();
+        if (correctPoints.isEmpty()) return;
+        connectPoints(correctPoints, event);
     }
 }

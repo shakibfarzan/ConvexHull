@@ -3,9 +3,9 @@ package org.bihe.control;
 import java.awt.*;
 import java.util.LinkedList;
 
-public class BlindSearch {
+public class BlindSearch implements ConvexHull{
 
-    private LinkedList<Point> points;
+    private final LinkedList<Point> points;
 
     public BlindSearch(LinkedList<Point> points) {
         this.points = points;
@@ -23,6 +23,7 @@ public class BlindSearch {
         return !((det1 >= 0 || det2 >= 0 || det3 >= 0) && (det1 < 0 || det2 < 0 || det3 < 0));
     }
 
+    @Override
     public LinkedList<Point> solve() {
         LinkedList<Point> correctPoints = new LinkedList<>();
         for (Point p : points) {
