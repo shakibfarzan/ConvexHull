@@ -33,6 +33,7 @@ public class MainController {
         frame.getClearLinesButton().addActionListener(this::clearLines);
         frame.getBlindSearchButton().addActionListener(this::blindSearchAction);
         frame.getQuickHallButton().addActionListener(this::quickHullAction);
+        frame.getGrahamScanButton().addActionListener(this::grahamScanAction);
     }
 
     private void setPoint(MouseEvent e){
@@ -89,7 +90,7 @@ public class MainController {
         connectedPoints.clear();
     }
 
-    private static double reverseSlope(Point a, Point b){
+    public static double reverseSlope(Point a, Point b){
         return ((b.getX() - a.getX()))/(b.getY() - a.getY());
     }
 
@@ -131,7 +132,7 @@ public class MainController {
         g.drawLine(prev.x, prev.y, first.x, first.y);
     }
 
-    private static LinkedList<Point> minY(LinkedList<Point> points){
+    public static LinkedList<Point> minY(LinkedList<Point> points){
         Point min = points.getFirst();
         for (Point p: points){
             if(p.getY() > min.getY()){
@@ -157,6 +158,13 @@ public class MainController {
     private void quickHullAction(ActionEvent event){
         QuickHull quickHull = new QuickHull(frame.getPoints());
         LinkedList<Point> correctPoints = quickHull.solve();
+        if (correctPoints.isEmpty()) return;
+        connectPoints(correctPoints, event);
+    }
+
+    private void grahamScanAction(ActionEvent event){
+        GrahamScan grahamScan = new GrahamScan(frame.getPoints());
+        LinkedList<Point> correctPoints = grahamScan.solve();
         if (correctPoints.isEmpty()) return;
         connectPoints(correctPoints, event);
     }
