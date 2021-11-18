@@ -150,12 +150,14 @@ public class MainController {
 
     private void blindSearchAction(ActionEvent event){
         BlindSearch blindSearch = new BlindSearch(frame.getPoints());
+//        OrgBlind blindSearch = new OrgBlind(frame.getPoints());
         LinkedList<Point> correctPoints = blindSearch.solve();
         if (correctPoints.isEmpty()) return;
         connectPoints(correctPoints, event);
     }
 
     private void quickHullAction(ActionEvent event){
+        if (frame.getPoints().isEmpty()) return;
         QuickHull quickHull = new QuickHull(frame.getPoints());
         LinkedList<Point> correctPoints = quickHull.solve();
         if (correctPoints.isEmpty()) return;
@@ -163,6 +165,7 @@ public class MainController {
     }
 
     private void grahamScanAction(ActionEvent event){
+        if (frame.getPoints().isEmpty()) return;
         GrahamScan grahamScan = new GrahamScan(frame.getPoints());
         LinkedList<Point> correctPoints = grahamScan.solve();
         if (correctPoints.isEmpty()) return;

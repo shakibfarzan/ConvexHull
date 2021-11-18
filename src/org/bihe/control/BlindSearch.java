@@ -20,14 +20,17 @@ public class BlindSearch implements ConvexHull{
         double det2 = determinant(p, v2, v3);
         double det3 = determinant(p, v3, v1);
 
-        return !((det1 >= 0 || det2 >= 0 || det3 >= 0) && (det1 < 0 || det2 < 0 || det3 < 0));
+        return !((det1 >= 0 || det2 >= 0 || det3 >= 0) && (det1 <= 0 || det2 <= 0 || det3 <= 0));
     }
 
     @Override
     public LinkedList<Point> solve() {
         LinkedList<Point> correctPoints = new LinkedList<>();
+        Point point = points.element();
         for (Point p : points) {
+            if (p.equals(point) && !p.equals(points.element())) continue;
             boolean inTriangle = false;
+            point = p;
             Loop:
             for (Point v1 : points) {
                 if (p.equals(v1)) continue;

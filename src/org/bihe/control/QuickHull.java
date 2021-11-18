@@ -37,7 +37,8 @@ public class QuickHull implements ConvexHull {
             solution.add(points.element());
             return;
         }
-        double maxArea = 0;
+
+        double maxArea = -1;
         Point maxPoint = null;
         for (Point point: points){
             double area = area(p1,p2,point);
@@ -105,7 +106,7 @@ public class QuickHull implements ConvexHull {
     private LinkedList<Point> checkSidedList(Point p1, Point p2, LinkedList<Point> givenPoints){
         LinkedList<Point> points = new LinkedList<>();
         for (Point point: givenPoints){
-            if (side(p1, p2, point) > 0){
+            if (side(p1, p2,point) > 0){
                 points.add(point);
             }
         }

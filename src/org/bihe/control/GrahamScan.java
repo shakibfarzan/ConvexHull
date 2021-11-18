@@ -5,19 +5,19 @@ import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.PriorityQueue;
 
-public class GrahamScan implements ConvexHull{
-    private static class Node{
+public class GrahamScan implements ConvexHull {
+    private static class Node {
         Point value;
         Node next;
         Node prev;
 
-        public Node(Point value){
+        public Node(Point value) {
             this.value = value;
         }
 
         @Override
         public String toString() {
-            return "Value: "+value+" Next: "+next.value+" Prev: "+prev.value;
+            return "Value: " + value + " Next: " + next.value + " Prev: " + prev.value;
         }
     }
 
@@ -28,20 +28,31 @@ public class GrahamScan implements ConvexHull{
     private PriorityQueue<Point> minYPQ;
     private Point minY;
     private LinkedList<Point> points;
-    public GrahamScan(LinkedList<Point> orgPoints){
+
+    public GrahamScan(LinkedList<Point> orgPoints) {
         this.orgPoints = orgPoints;
         this.minYs = MainController.minY(orgPoints);
         this.minY = minYs.element();
-        this.pointPriorityQueue = new PriorityQueue<>(Comparator.comparingDouble(p -> MainController.reverseSlope(minY, p)));
+        this.pointPriorityQueue = new PriorityQueue<>(this::compare);
         this.minYPQ = new PriorityQueue<>(Comparator.comparingDouble(Point::getX));
     }
 
-    public void init(){
+    private int compare(Point p1, Point p2){
+        double rs1 = MainController.reverseSlope(minY, p1);
+        double rs2 = MainController.reverseSlope(minY, p2);
+        if (rs1 != rs2){
+            return Double.compare(rs1,rs2);
+        }else {
+            return Integer.compare(p1.x,p2.x);
+        }
+    }
+
+    public void init() {
         sort();
         head = new Node(this.points.element());
         Node current = head;
-        for (Point point: points){
-            if (point.equals(points.element())) continue;
+        for (Point point : points) {
+            if (point.equals(current.value)) continue;
             Node node = new Node(point);
             node.prev = current;
             current.next = node;
@@ -49,19 +60,19 @@ public class GrahamScan implements ConvexHull{
         }
     }
 
-    private void sort(){
+    private void sort() {
         points = new LinkedList<>();
-        for (Point point: orgPoints){
+        for (Point point : orgPoints) {
             pointPriorityQueue.add(point);
         }
-        while(!pointPriorityQueue.isEmpty()){
+        while (!pointPriorityQueue.isEmpty()) {
             Point t = pointPriorityQueue.remove();
             if (t.y != minY.y) points.add(t);
         }
-        for (Point point: minYs){
+        for (Point point : minYs) {
             minYPQ.add(point);
         }
-        while (!minYPQ.isEmpty()){
+        while (!minYPQ.isEmpty()) {
             points.addFirst(minYPQ.remove());
         }
     }
@@ -72,26 +83,26 @@ public class GrahamScan implements ConvexHull{
         init();
         graham();
         Node current = head;
-        while (current != null){
+        while (current != null) {
             solution.add(current.value);
             current = current.next;
         }
         return solution;
     }
 
-    private void graham(){
-        Node p1Node = head;
+    private void graham() {
+        Node p1Node = head.next;
         if (p1Node == null) return;
         Node p2Node = p1Node.next;
         if (p2Node == null) return;
         Node p3Node = p2Node.next;
         if (p3Node == null) return;
-        while (p3Node != null){
-            if (side(p1Node.value, p2Node.value, p3Node.value)>0){
+        while (p3Node != null) {
+            if (p1Node == null || side(p1Node.value, p3Node.value, p2Node.value) >= 0) {
                 p1Node = p2Node;
                 p2Node = p3Node;
                 p3Node = p3Node.next;
-            }else {
+            } else {
                 p1Node.next = p3Node;
                 p3Node.prev = p1Node;
                 p2Node = p1Node;
@@ -99,7 +110,8 @@ public class GrahamScan implements ConvexHull{
             }
         }
     }
-    public static int side(Point p1, Point p2, Point p3){
-        return (p1.y - p3.y) * (p2.x - p1.x) - (p1.y - p2.y) * (p3.x - p1.x);
+
+    public static int side(Point p1, Point p2, Point p3) {
+        return (p3.y - p1.y) * (p2.x - p1.x)-(p2.y - p1.y) * (p3.x - p1.x);
     }
 }
