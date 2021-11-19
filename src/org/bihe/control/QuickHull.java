@@ -50,7 +50,6 @@ public class QuickHull implements ConvexHull {
         solution.add(maxPoint);
         LinkedList<Point> leftPoints = checkSidedList(p1,maxPoint,points);
         LinkedList<Point> rightPoints = checkSidedList(maxPoint,p2,points);
-
         quickHull(leftPoints, p1, maxPoint);
         quickHull(rightPoints, maxPoint, p2);
     }
@@ -106,7 +105,8 @@ public class QuickHull implements ConvexHull {
     private LinkedList<Point> checkSidedList(Point p1, Point p2, LinkedList<Point> givenPoints){
         LinkedList<Point> points = new LinkedList<>();
         for (Point point: givenPoints){
-            if (side(p1, p2,point) > 0){
+            if (side(p1, p2, point) <= 0){
+                if (point.equals(p1) || point.equals(p2)) continue;
                 points.add(point);
             }
         }

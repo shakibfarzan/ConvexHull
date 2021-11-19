@@ -152,6 +152,7 @@ public class MainController {
         BlindSearch blindSearch = new BlindSearch(frame.getPoints());
 //        OrgBlind blindSearch = new OrgBlind(frame.getPoints());
         LinkedList<Point> correctPoints = blindSearch.solve();
+        System.out.println(correctPoints.size());
         if (correctPoints.isEmpty()) return;
         connectPoints(correctPoints, event);
     }
@@ -160,6 +161,7 @@ public class MainController {
         if (frame.getPoints().isEmpty()) return;
         QuickHull quickHull = new QuickHull(frame.getPoints());
         LinkedList<Point> correctPoints = quickHull.solve();
+        System.out.println(correctPoints.size());
         if (correctPoints.isEmpty()) return;
         connectPoints(correctPoints, event);
     }
@@ -168,6 +170,7 @@ public class MainController {
         if (frame.getPoints().isEmpty()) return;
         GrahamScan grahamScan = new GrahamScan(frame.getPoints());
         LinkedList<Point> correctPoints = grahamScan.solve();
+        System.out.println(correctPoints.size());
         if (correctPoints.isEmpty()) return;
         connectPoints(correctPoints, event);
     }

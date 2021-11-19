@@ -16,29 +16,30 @@ public class Main {
     }
 
     private static void testAlgorithms(LinkedList<Point> points3, LinkedList<Point> minYs3, Point minY3, LinkedList<Point> grahamSol) {
-        grahamSol.sort(Comparator.comparingDouble(p-> MainController.reverseSlope(minY3,p)));
+        grahamSol.sort(Comparator.comparingDouble(p -> MainController.reverseSlope(minY3, p)));
         points3.removeIf(p -> p.getY() == minY3.getY());
-        while(!minYs3.isEmpty()){
+        while (!minYs3.isEmpty()) {
             Point p = minYs3.pollLast();
             points3.addFirst(p);
         }
     }
 
-    private static void test(){
+    private static void test() {
         int blind = 0, quick = 0, graham = 0;
+        LinkedList<Point> orgBlindSol = null;
         for (int i = 0; i < 100; i++) {
             LinkedList<Point> points0 = new LinkedList<>();
             LinkedList<Point> points1 = new LinkedList<>();
             LinkedList<Point> points2 = new LinkedList<>();
             LinkedList<Point> points3 = new LinkedList<>();
             Random r = new Random();
-            for (int j = 0; j < 300; j++) {
-                int x = r.nextInt(5000);
-                int y = r.nextInt(5000);
-                points0.add(new Point(x,y));
-                points1.add(new Point(x,y));
-                points2.add(new Point(x,y));
-                points3.add(new Point(x,y));
+            for (int j = 0; j < 100; j++) {
+                int x = r.nextInt(200);
+                int y = r.nextInt(200);
+                points0.add(new Point(x, y));
+                points1.add(new Point(x, y));
+                points2.add(new Point(x, y));
+                points3.add(new Point(x, y));
             }
             LinkedList<Point> minYs0 = MainController.minY(points0);
             Point minY0 = minYs0.element();
@@ -57,7 +58,7 @@ public class Main {
             minYs3.sort(Comparator.comparingDouble(Point::getX));
 
             OrgBlind orgBlind = new OrgBlind(points0);
-            LinkedList<Point> orgBlindSol = orgBlind.solve();
+            orgBlindSol = orgBlind.solve();
 
             BlindSearch blindSearch = new BlindSearch(points1);
             LinkedList<Point> blindSol = blindSearch.solve();
@@ -68,25 +69,36 @@ public class Main {
             GrahamScan grahamScan = new GrahamScan(points3);
             LinkedList<Point> grahamSol = grahamScan.solve();
 
-            testAlgorithms(points0,minYs0,minY0,orgBlindSol);
+            testAlgorithms(points0, minYs0, minY0, orgBlindSol);
             testAlgorithms(points1, minYs1, minY1, blindSol);
             testAlgorithms(points2, minYs2, minY2, quickSol);
             testAlgorithms(points3, minYs3, minY3, grahamSol);
-            System.out.println("\nNumber of tests: "+(i+1));
-            System.out.println("True Size: "+orgBlindSol.size());
+            System.out.println("\nNumber of tests: " + (i + 1));
+            System.out.println("True Size: " + orgBlindSol.size());
             boolean blindOK = orgBlindSol.equals(blindSol);
             boolean quickOK = orgBlindSol.equals(quickSol);
             boolean grahamOK = orgBlindSol.equals(grahamSol);
-            if (!blindOK) blind++;
-            if (!quickOK) quick++;
-            if (!grahamOK) graham++;
-            System.out.println("BlindSearch: "+blindOK+" "+blindSol.size());
-            System.out.println("QuickHull: "+quickOK+" "+quickSol.size());
-            System.out.println("GrahamScan: "+grahamOK+" "+grahamSol.size());
+            if (!blindOK) {
+                blind++;
+                System.out.println(blindSol);
+            }
+            if (!quickOK) {
+                quick++;
+                System.out.println(quickSol);
+            }
+            if (!grahamOK) {
+                graham++;
+                System.out.println(grahamSol);
+            }
+            System.out.println("BlindSearch: " + blindOK + " " + blindSol.size());
+            System.out.println("QuickHull: " + quickOK + " " + quickSol.size());
+            System.out.println("GrahamScan: " + grahamOK + " " + grahamSol.size());
         }
         System.out.println();
-        System.out.println("BlindSearch faults: "+blind);
-        System.out.println("QuickHull faults: "+quick);
-        System.out.println("GrahamScan faults: "+graham);
+        System.out.println("BlindSearch faults: " + blind);
+        System.out.println("QuickHull faults: " + quick);
+        System.out.println("GrahamScan faults: " + graham);
+        System.out.println();
+        System.out.println(orgBlindSol);
     }
 }

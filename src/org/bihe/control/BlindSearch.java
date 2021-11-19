@@ -45,7 +45,7 @@ public class BlindSearch implements ConvexHull{
                     }
                 }
             }
-            if(!inTriangle) correctPoints.add(p);
+            if(!inTriangle) correctPoints.add(point);
         }
         return correctPoints;
     }

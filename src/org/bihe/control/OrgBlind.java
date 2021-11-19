@@ -32,7 +32,7 @@ public class OrgBlind implements ConvexHull{
                 }
             }
             if (!inside) {
-                extrems.add(p);
+                extrems.add(point);
             }
         }
         return extrems;
