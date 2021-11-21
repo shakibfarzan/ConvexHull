@@ -1,0 +1,50 @@
+Testing on n=50 with 20 repeat
+BlindSearch faults: 0
+QuickHull faults: 0
+GrahamScan faults: 0
+
+Testing on n=100 with 20 repeat
+BlindSearch faults: 0
+QuickHull faults: 0
+GrahamScan faults: 0
+
+Testing on n=150 with 20 repeat
+BlindSearch faults: 0
+QuickHull faults: 0
+GrahamScan faults: 0
+
+Testing on n=200 with 20 repeat
+BlindSearch faults: 0
+QuickHull faults: 0
+GrahamScan faults: 0
+
+Testing on n=250 with 20 repeat
+BlindSearch faults: 0
+QuickHull faults: 0
+GrahamScan faults: 0
+
+Testing on n=300 with 20 repeat
+BlindSearch faults: 0
+QuickHull faults: 0
+GrahamScan faults: 0
+
+Testing on n=350 with 20 repeat
+BlindSearch faults: 0
+QuickHull faults: 0
+GrahamScan faults: 0
+
+Testing on n=400 with 20 repeat
+BlindSearch faults: 0
+QuickHull faults: 0
+GrahamScan faults: 0
+
+Testing on n=450 with 20 repeat
+BlindSearch faults: 0
+QuickHull faults: 0
+GrahamScan faults: 0
+
+Testing on n=500 with 20 repeat
+BlindSearch faults: 0
+QuickHull faults: 0
+GrahamScan faults: 0
+

@@ -8,20 +8,13 @@ import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
-        MainFrame mf = new MainFrame();
-        mf.setVisible(true);
-        MainController mc = new MainController(mf);
+//        MainFrame mf = new MainFrame();
+//        mf.setVisible(true);
+//        MainController mc = new MainController(mf);
 //        test();
 //        System.out.println(GrahamScan.side(new Point(0,0), new Point(3,3),new Point(5,5)));
-    }
-
-    private static void testAlgorithms(LinkedList<Point> points3, LinkedList<Point> minYs3, Point minY3, LinkedList<Point> grahamSol) {
-        grahamSol.sort(Comparator.comparingDouble(p -> MainController.reverseSlope(minY3, p)));
-        points3.removeIf(p -> p.getY() == minY3.getY());
-        while (!minYs3.isEmpty()) {
-            Point p = minYs3.pollLast();
-            points3.addFirst(p);
-        }
+        BlindSearch blindSearch = new BlindSearch(new LinkedList<>());
+        System.out.println(blindSearch.getClass().getName().split("\\.")[3]);
     }
 
     private static void test() {
@@ -34,8 +27,8 @@ public class Main {
             LinkedList<Point> points3 = new LinkedList<>();
             Random r = new Random();
             for (int j = 0; j < 100; j++) {
-                int x = r.nextInt(200);
-                int y = r.nextInt(200);
+                int x = r.nextInt(1000);
+                int y = r.nextInt(1000);
                 points0.add(new Point(x, y));
                 points1.add(new Point(x, y));
                 points2.add(new Point(x, y));
@@ -69,10 +62,10 @@ public class Main {
             GrahamScan grahamScan = new GrahamScan(points3);
             LinkedList<Point> grahamSol = grahamScan.solve();
 
-            testAlgorithms(points0, minYs0, minY0, orgBlindSol);
-            testAlgorithms(points1, minYs1, minY1, blindSol);
-            testAlgorithms(points2, minYs2, minY2, quickSol);
-            testAlgorithms(points3, minYs3, minY3, grahamSol);
+            Coordinator.testAlgorithms(points0, minYs0, minY0, orgBlindSol);
+            Coordinator.testAlgorithms(points1, minYs1, minY1, blindSol);
+            Coordinator.testAlgorithms(points2, minYs2, minY2, quickSol);
+            Coordinator.testAlgorithms(points3, minYs3, minY3, grahamSol);
             System.out.println("\nNumber of tests: " + (i + 1));
             System.out.println("True Size: " + orgBlindSol.size());
             boolean blindOK = orgBlindSol.equals(blindSol);
