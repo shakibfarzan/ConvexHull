@@ -24,8 +24,15 @@ public class Coordinator {
         return System.nanoTime();
     }
 
-    public static void testAlgorithms(LinkedList<Point> points3, LinkedList<Point> minYs3, Point minY3, LinkedList<Point> grahamSol) {
-        grahamSol.sort(Comparator.comparingDouble(p -> MainController.reverseSlope(minY3, p)));
+    /**
+     * gives solution of points and sort solutions by angle
+     * @param points3
+     * @param minYs3
+     * @param minY3
+     * @param sol
+     */
+    public static void testAlgorithms(LinkedList<Point> points3, LinkedList<Point> minYs3, Point minY3, LinkedList<Point> sol) {
+        sol.sort(Comparator.comparingDouble(p -> MainController.reverseSlope(minY3, p)));
         points3.removeIf(p -> p.getY() == minY3.getY());
         while (!minYs3.isEmpty()) {
             Point p = minYs3.pollLast();
@@ -38,10 +45,12 @@ public class Coordinator {
         BufferedWriter writer2 = new BufferedWriter(new FileWriter("output_of_faults.txt"));
         for (int num = from; num <= n; num += step)
         {
+            //define integers for counting faults in each repeat
             int blind = 0, quick = 0, graham = 0;
             for (int rep = 0; rep < maxRep; rep++) {
                 System.out.println("Testing n= " + num);
                 ArrayList<LinkedList<Point>> pointsLists = new ArrayList<>();
+                //define separate lists for each algorithm
                 LinkedList<Point> points0 = new LinkedList<>();
                 LinkedList<Point> points1 = new LinkedList<>();
                 LinkedList<Point> points2 = new LinkedList<>();
@@ -67,6 +76,8 @@ public class Coordinator {
                     minYs.sort(Comparator.comparingDouble(Point::getX));
                 }
                 ArrayList<ConvexHull> hulls = new ArrayList<>();
+                //Our scale for testing is the algorithm given for Blind Search
+                //call this algorithm and sort the solution
                 OrgBlind orgBlind = new OrgBlind(points0);
                 LinkedList<Point> orgBlindSol = orgBlind.solve();
                 testAlgorithms(points0,minYs,minY,orgBlindSol);
@@ -86,7 +97,9 @@ public class Coordinator {
                     writer.write((finish - begin) + ",");
                     testAlgorithms(pointsLists.get(i),minYs,minY,sol);
                     i++;
+                    //compare each algorithm solution with original solution
                     boolean isCorrect = orgBlindSol.equals(sol);
+                    //if we have incorrect solution, increase the faults counter
                     if (!isCorrect){
                         switch (i) {
                             case 1 -> blind++;
@@ -98,6 +111,7 @@ public class Coordinator {
                 writer.write("\n");
 
             }
+            //then write results in a separate file
             writer2.write("Testing on n="+num+" with "+maxRep+" repeat"+"\n"+"BlindSearch faults: " + blind+"\n"+"QuickHull faults: " + quick+"\n"+"GrahamScan faults: " + graham+"\n\n");
         }
         writer.close();
